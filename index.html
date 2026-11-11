@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SAES LIBRARY - ENS 4.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;--side:#212121;--green:#1f4d17;--teal:#00695c;--ease:cubic-bezier(.2,.8,.2,1)}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{font-family:Lato,Arial,sans-serif;background:#fff;color:#222;display:flex}
+/* sidebar */
+nav{width:250px;flex:none;background:var(--side);color:#fff;height:100%;overflow-y:auto;padding:48px 0 24px;position:fixed;left:0;top:0;z-index:20;transition:transform .45s var(--ease)}
+.logo{width:36px;height:36px;margin-left:48px;border-radius:3px;background:linear-gradient(135deg,#2e7d6b,#1b3d5c 60%,#e0b341);box-shadow:0 0 0 1px #444}
+.brand{font-size:26px;font-weight:400;line-height:33px;letter-spacing:.5px;padding:50px 48px 62px}
+.item{display:flex;align-items:center;font-size:15px;line-height:20px;padding:11px 12px 11px 40px;cursor:pointer;position:relative;color:#fff;text-decoration:none;transition:background .25s,padding-left .3s var(--ease)}
+.item:hover{background:rgba(255,255,255,.08);padding-left:46px}
+.item.open{background:rgba(255,255,255,.05)}
+.item.has{padding-left:22px}.item.has:hover{padding-left:28px}
+.item.has .lbl{padding-left:0}
+.chev{width:18px;height:18px;flex:none;margin-right:0;transition:transform .45s var(--ease)}
+.item.has .chev{margin-right:0}
+.open>.chev,.item.open .chev{transform:rotate(180deg)}
+.sub{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--ease)}
+.sub.show{grid-template-rows:1fr}
+.sub>div{overflow:hidden}
+.sub a{display:block;font-size:14px;color:#cfd8d3;padding:8px 12px 8px 62px;text-decoration:none;opacity:0;transform:translateX(-18px);transition:opacity .35s,transform .45s var(--ease),background .2s,color .2s;cursor:pointer;position:relative}
+.sub.show a{opacity:1;transform:none}
+.sub.show a:nth-child(1){transition-delay:.05s}.sub.show a:nth-child(2){transition-delay:.1s}.sub.show a:nth-child(3){transition-delay:.15s}.sub.show a:nth-child(4){transition-delay:.2s}.sub.show a:nth-child(5){transition-delay:.25s}.sub.show a:nth-child(6){transition-delay:.3s}
+.sub a:hover,.sub a.on{background:rgba(255,255,255,.1);color:#fff}
+.sub a.on::before{content:"";position:absolute;left:46px;top:10px;bottom:10px;width:3px;border-radius:2px;background:#8bc34a}
+/* main */
+main{margin-left:250px;flex:1;height:100%;overflow-y:auto;overflow-x:hidden;position:relative;scroll-behavior:smooth}
+.hero{height:340px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(90deg,#c9b894 0,#f6e9d2 18%,#fbf1de 50%,#f6e9d2 82%,#d2c19a 100%)}
+.hero::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(150,110,60,.18) 0 2px,transparent 2px 36px);opacity:.5;mask:linear-gradient(90deg,#000 0,transparent 20%,transparent 80%,#000)}
+.leaf{position:absolute;fill:#6b8f4e;opacity:.85;transform-origin:bottom center;animation:sway 7s ease-in-out infinite alternate}
+@keyframes sway{to{transform:rotate(3deg) translateY(-3px)}}
+.bird{position:absolute;right:130px;top:20px;width:290px;animation:bob 5s ease-in-out infinite alternate}
+@keyframes bob{to{transform:translateY(-8px) rotate(-1.5deg)}}
+h1{font-size:84px;font-weight:900;color:var(--green);position:relative;z-index:2;letter-spacing:-1px}
+h1 span{display:inline-block;animation:drop .7s var(--ease) both}
+@keyframes drop{from{opacity:0;transform:translateY(-30px) scale(.9)}}
+.band{height:117px;display:flex;align-items:center;position:relative;overflow:hidden;background:linear-gradient(180deg,#d9a883,#cf9c76)}
+.band::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.18) 0 70px,transparent 70px 140px);opacity:.5}
+.band::after{content:"";position:absolute;inset:0;background:rgba(255,255,255,.35)}
+.band h2{position:relative;z-index:2;font-size:32px;font-weight:700;color:#222;margin-left:max(24px,calc((100% - 1155px)/2 + 9px));text-shadow:0 1px 0 rgba(255,255,255,.4)}
+.units{max-width:1155px;margin:0 auto;padding:12px 24px 90px;width:100%}
+.acc{border-bottom:1px solid #777}
+.acc button{all:unset;box-sizing:border-box;width:100%;display:flex;justify-content:space-between;align-items:center;padding:42px 8px 28px;font:400 26px Lato,sans-serif;color:var(--teal);cursor:pointer;position:relative}
+.acc button:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.acc button::after{content:"";position:absolute;left:0;bottom:-1px;height:3px;width:0;background:var(--teal);transition:width .6s var(--ease)}
+.acc.open button::after,.acc button:hover::after{width:100%}
+.acc button .chev{width:30px;height:30px;color:#444;transition:transform .55s var(--ease),color .3s}
+.acc.open .chev{transform:rotate(180deg);color:var(--teal)}
+.panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .6s var(--ease)}
+.acc.open .panel{grid-template-rows:1fr}
+.panel>div{overflow:hidden}
+.links{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;padding:6px 8px 30px}
+.links a{display:flex;align-items:center;gap:12px;padding:16px 18px;border-radius:10px;background:#f1f6f3;color:#1b3b33;text-decoration:none;font-size:17px;opacity:0;transform:translateY(20px) scale(.96);transition:opacity .4s,transform .55s var(--ease),background .25s,box-shadow .25s}
+.acc.open .links a{opacity:1;transform:none}
+.acc.open .links a:nth-child(1){transition-delay:.12s}.acc.open .links a:nth-child(2){transition-delay:.2s}.acc.open .links a:nth-child(3){transition-delay:.28s}.acc.open .links a:nth-child(4){transition-delay:.36s}
+.acc.open .links a:hover{background:#dcebe4;box-shadow:0 6px 16px rgba(0,80,60,.15);transform:translateY(-3px);transition-delay:0s}
+.links i{width:34px;height:34px;border-radius:8px;background:var(--teal);color:#fff;display:grid;place-items:center;font:700 13px Lato;font-style:normal}
+.content{max-width:1155px;margin:0 auto;padding:56px 24px 90px}
+.ch h2{font-size:32px;font-weight:700;animation:rise .6s var(--ease) backwards}
+.ch p{color:#555;font-size:17px;margin:10px 0 30px;animation:rise .6s .08s var(--ease) backwards}
+.content .links{padding:0;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.content .links a{opacity:1;transform:none;animation:rise .6s var(--ease) backwards;animation-delay:calc(var(--i)*70ms + 150ms);padding:20px;border-left:4px solid var(--teal)}
+.content .links a:hover{background:#dcebe4;box-shadow:0 8px 20px rgba(0,80,60,.16);transform:translateY(-4px)}
+.content .links span{display:flex;flex-direction:column;gap:3px}
+.content .links small{color:#4d6b61;font-size:14px}
+@keyframes rise{from{opacity:0;transform:translateY(24px) scale(.96)}}
+.ch p{max-width:760px;line-height:1.6}
+.gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin:0 0 34px}
+.gal figure{border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.14);animation:rise .7s var(--ease) backwards;animation-delay:calc(var(--i)*90ms + 200ms)}
+.gal svg{display:block;width:100%;height:auto;transition:transform .8s var(--ease)}
+.gal figure:hover svg{transform:scale(1.08)}
+.gal figcaption{padding:10px 14px;font-size:14px;font-weight:700;color:#1f4d17;background:#f1f6f3;position:relative}
+.hist{max-width:760px;margin-top:6px}
+.hist h3{font-size:26px;margin-bottom:18px;animation:rise .6s .6s var(--ease) backwards}
+.hist div{border-left:4px solid var(--teal);padding:2px 0 2px 18px;margin-bottom:20px;animation:rise .6s var(--ease) backwards;animation-delay:calc(var(--i)*120ms + 700ms)}
+.hist h4{font-size:18px;color:var(--teal);margin-bottom:4px}
+.hist p{line-height:1.6;color:#444;font-size:16px}
+.rot{animation:spin 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.wv{animation:wave 4s ease-in-out infinite alternate}
+@keyframes wave{to{transform:translateX(-30px)}}
+.menu{display:none;position:fixed;top:max(12px,env(safe-area-inset-top));left:12px;z-index:30;width:42px;height:42px;border-radius:50%;border:0;background:var(--side);color:#fff;font-size:20px;cursor:pointer}
+@media(max-width:800px){nav{transform:translateX(-100%)}nav.show{transform:none}main{margin-left:0}.menu{display:block}h1{font-size:38px}.bird{width:150px;right:10px;top:10px}.hero{height:260px}.acc button{font-size:22px}.band h2{font-size:26px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01s!important;transition-delay:0s!important}}
+</style>
+</head>
+<body>
+<button class="menu" aria-label="Toggle menu" onclick="document.querySelector('nav').classList.toggle('show')">☰</button>
+<nav id="nav" aria-label="Site"></nav>
+<main>
+  <section class="hero">
+    <svg class="leaf" style="left:-30px;top:20px;width:210px" viewBox="0 0 200 320"><path d="M60 300C-10 230 0 90 90 10c70 70 80 200-30 290z"/><path d="M120 310C100 230 150 150 200 120c10 80-20 170-80 190z" opacity=".7"/></svg>
+    <svg class="leaf" style="right:-20px;top:0;width:190px;animation-delay:-3s" viewBox="0 0 200 320"><path d="M150 300c70-70 60-210-30-290C50 80 40 210 150 300z"/><path d="M60 310c20-80-30-160-80-190-10 80 20 170 80 190z" opacity=".7"/></svg>
+    <svg class="bird" viewBox="0 0 300 300" aria-hidden="true"><path d="M30 90l55-12 8 20z" fill="#4a4a4a"/><path d="M80 60c40-35 110-20 120 40 20 60 0 130-50 170l-30 10c-10-40-60-60-70-110-10-40-5-80 30-110z" fill="#e8a923"/><path d="M130 80c50-10 90 40 80 110-10 50-40 90-80 100 20-60-10-110-40-130z" fill="#a8672a"/><path d="M95 60c20-25 70-25 85 15-30-5-60-5-85-15z" fill="#fff4d6"/><circle cx="118" cy="82" r="9" fill="#222"/><path d="M150 285l20 14M165 280l22 8" stroke="#6b4a2a" stroke-width="5" stroke-linecap="round"/></svg>
+    <h1 id="title" aria-live="polite"></h1>
+  </section>
+  <section class="content" id="content" aria-live="polite"></section>
+</main>
+<script>
+const CH='<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+const menu=[
+ {t:'Home'},
+ {t:'About',s:['Mission','Our team','Contact us']},
+ {t:'Official Guidelines',s:['Student handbook','Examination rules','Project guidelines']},
+ {t:'Environmental Science (ENS)',s:['ENS 1.1','ENS 1.2','ENS 2.1','ENS 3.1','ENS 4.1','ENS 4.2'],open:1},
+ {t:'Environmental Studies Natural Resource Conservation (ERC)',s:['ERC 1.1','ERC 2.1','ERC 3.1','ERC 4.1']},
+ {t:'Environmental Studies & Community Development (ECD)',s:['ECD 1.1','ECD 2.1','ECD 3.1','ECD 4.1']},
+ {t:'Environmental Education (EED)',s:['EED 1.1','EED 2.1','EED 3.1','EED 4.1']},
+ {t:'Academic Calendar & Fee Guides'}
+];
+const nav=document.getElementById('nav');
+nav.innerHTML='<div class="logo"></div><div class="brand">SAES<br>LIBRARY</div>'+menu.map(m=>m.s?
+ `<div class="grp"><div class="item has${m.open?' open':''}" role="button" tabindex="0" aria-expanded="${!!m.open}">${CH}<span class="lbl">${m.t}</span></div><div class="sub${m.open?' show':''}"><div>${m.s.map(x=>`<a${''}>${x}</a>`).join('')}</div></div></div>`
+ :`<a class="item">${m.t}</a>`).join('');
+// fix chevron position: chevron sits left like original
+nav.querySelectorAll('.item.has').forEach(it=>{
+ const go=()=>{const s=it.nextElementSibling,o=s.classList.toggle('show');it.classList.toggle('open',o);it.setAttribute('aria-expanded',o);const t=it.textContent.trim();o?showGroup(t):showHome()};
+ it.onclick=go;it.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}};
+});
+function setTitle(t){const h=document.getElementById('title');h.innerHTML=[...t].map((c,i)=>`<span style="animation-delay:${i*60}ms">${c===' '?'&nbsp;':c}</span>`).join('');document.title=t}
+nav.querySelectorAll('.sub a').forEach(a=>a.onclick=()=>{showItem(a.textContent);document.querySelector('main').scrollTo({top:0});nav.classList.remove('show')});
+setTitle('SAES LIBRARY');
+// main page content driven by the sidebar
+const content=document.getElementById('content');
+function render(h,p,cards){
+ content.innerHTML=`<div class="ch"><h2>${h}</h2><p>${p}</p></div><div class="links">${cards.map((c,i)=>`<a href="#" style="--i:${i}" data-k="${c[2]||''}"><i>${c[0][0]}</i><span><b>${c[0]}</b><small>${c[1]}</small></span></a>`).join('')}</div>`;
+ content.querySelectorAll('a').forEach(a=>a.onclick=e=>{e.preventDefault();const k=a.dataset.k;if(!k)return;const n=k.slice(2);if(k[0]==='g'){const it=[...nav.querySelectorAll('.item.has')].find(x=>x.textContent.trim()===n);it.classList.contains('open')?showGroup(n):it.click()}else showItem(n)});
+}
+function clearOn(){nav.querySelectorAll('.sub a.on').forEach(x=>x.classList.remove('on'))}
+const tb=(x,y,s,d)=>`<path d="M${x-4*s} ${y+80*s}L${x} ${y}L${x+4*s} ${y+80*s}z" fill="#f7f7f7"/><g class="rot" style="transform-origin:${x}px ${y}px;animation-duration:${d}s">${[0,120,240].map(r=>`<path d="M${x} ${y}l${-4*s} ${-50*s}h${8*s}z" fill="#fff" transform="rotate(${r} ${x} ${y})"/>`).join('')}</g><circle cx="${x}" cy="${y}" r="${5*s}" fill="#cfd8dc"/>`;
+const SC=[
+[`<svg viewBox="0 0 300 200" role="img" aria-label="Forest hills"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfe3f0"/><stop offset="1" stop-color="#f3f8df"/></linearGradient></defs><rect width="300" height="200" fill="url(#g1)"/><circle cx="235" cy="50" r="22" fill="#ffe27a"/><path d="M0 130Q80 90 160 125T300 110V200H0z" fill="#7fae6b"/><g fill="#2f6b3a"><path d="M40 150l22-70 22 70z"/><path d="M90 160l26-86 26 86z"/><path d="M160 155l20-64 20 64z"/><path d="M215 165l24-78 24 78z"/></g><path d="M0 175Q90 150 300 178V200H0z" fill="#3f7d46"/></svg>`,'Forest conservation'],
+[`<svg viewBox="0 0 300 200" role="img" aria-label="Mountain river"><rect width="300" height="200" fill="#d6ecf5"/><path d="M0 120l60-60 40 40 50-70 70 90 40-30 40 30v80H0z" fill="#7a99a8"/><path d="M150 30l-22 28h44z" fill="#fff"/><rect y="120" width="300" height="80" fill="#5aa9c9"/><g class="wv" fill="none" stroke="#e8f6fb" stroke-width="3" stroke-linecap="round"><path d="M-30 140q15-8 30 0t30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0"/><path d="M-30 165q15-8 30 0t30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0"/></g><path d="M0 185q70-20 140-5t160-8v28H0z" fill="#6f9a52"/></svg>`,'Water and wetlands'],
+[`<svg viewBox="0 0 300 200" role="img" aria-label="Wind turbines"><defs><linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fd3ee"/><stop offset="1" stop-color="#e9f6e4"/></linearGradient></defs><rect width="300" height="200" fill="url(#g3)"/><circle cx="40" cy="40" r="18" fill="#ffe27a"/><path d="M0 150Q90 120 180 148T300 135V200H0z" fill="#8bc06b"/>${tb(95,60,1,6)}${tb(190,85,.75,8)}${tb(250,100,.55,10)}<path d="M0 180Q120 160 300 182V200H0z" fill="#5f9e4f"/></svg>`,'Renewable energy'],
+[`<svg viewBox="0 0 300 200" role="img" aria-label="Savanna sunset"><defs><linearGradient id="g4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7b267"/><stop offset="1" stop-color="#fde8b8"/></linearGradient></defs><rect width="300" height="200" fill="url(#g4)"/><circle cx="220" cy="105" r="34" fill="#f26b3a" opacity=".9"/><rect y="130" width="300" height="70" fill="#c9a24f"/><g fill="#3b2f1e"><path d="M92 170c4-20 2-34-6-46l5-2c6 10 10 14 14 14 4-2 6-8 8-14l5 2c-6 10-8 22-4 46z"/><ellipse cx="75" cy="112" rx="42" ry="9"/><ellipse cx="120" cy="104" rx="34" ry="8"/></g><path d="M0 170q80-14 300 4v26H0z" fill="#a8863d"/></svg>`,'Savanna ecosystems']];
+function showHome(){clearOn();render('Welcome to the SAES Library','A one-stop study hub for students of Environmental Science, Natural Resource Conservation, Community Development and Environmental Education. Find unit resources, official guidelines, and the academic calendar and fee guides in one place.',[]);content.querySelector('.links').insertAdjacentHTML('beforebegin','<div class="gal">'+SC.map((s,i)=>`<figure style="--i:${i}">${s[0]}<figcaption>${s[1]}</figcaption></figure>`).join('')+'</div>');content.querySelector('.links').outerHTML='<div class="hist"><h3>Our story</h3>'+[['How it began','The SAES Library started as a simple shared folder where lecturers and students pooled unit notes, past papers and guidelines so nobody had to hunt for them.'],['Growing together','As more programmes joined, including Environmental Science, Natural Resource Conservation, Community Development and Environmental Education, the materials were sorted by programme and year.'],['Today','It is now one website where students find resources by unit, read the official guidelines, and check the academic calendar and fee guides.']].map((h,i)=>`<div style="--i:${i}"><h4>${h[0]}</h4><p>${h[1]}</p></div>`).join('')+'</div>'}
+function showGroup(t){clearOn();render(t,'Choose a unit to see its study resources.',menu.find(m=>m.t===t).s.map(x=>[x,'Outline, notes and past papers','i:'+x]))}
+function showItem(n){clearOn();const a=[...nav.querySelectorAll('.sub a')].find(x=>x.textContent===n);a.classList.add('on');render(n,a.closest('.grp').querySelector('.lbl').textContent,[['Course outline','Unit overview and objectives'],['Lecture notes','Slides and reading lists'],['Past papers','Previous exam questions'],['Assignments','Coursework and CATs']])}
+nav.querySelectorAll('a.item').forEach(a=>a.onclick=()=>{clearOn();if(a.textContent==='Home')showHome();else render(a.textContent,'Key dates and fee information.',[['Semester dates','Opening, exams and closing'],['Fee structure','Tuition and other charges'],['Payment guide','How to pay and get receipts']])});
+showHome();
+</script>
+</body>
+</html>
